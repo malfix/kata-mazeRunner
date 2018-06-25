@@ -5,6 +5,7 @@ class Exercise
     @matrix = matrix
     @max_y = matrix.size
     @max_x = matrix[0].size
+    @solution = find_path()
   end
 
   def find_path()
@@ -42,5 +43,32 @@ class Exercise
 
   def is_free_wall(current_path)
     @matrix[current_path.last[1]][current_path.last[0]] == 'f'
+  end
+
+  def solution
+    @solution
+  end
+
+  def print_solution
+    puts "Soluzione"
+    puts "O#{'-'*@max_x}O"
+    @matrix.each_with_index do |row, y|
+      print '|'
+      row.each_with_index do |el, x|
+        if [x,y] == @start
+          print "S"
+        elsif [x,y] == @end
+          print "E"
+        elsif  @solution.include?([x,y])
+          print "x"
+        elsif el == 't'
+          print "*"
+        else
+          print " "
+        end
+      end
+      print "|\n"
+    end
+    puts "O#{'-'*@max_x}O"
   end
 end
